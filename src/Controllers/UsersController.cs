@@ -56,7 +56,7 @@ public class UsersController : ControllerBase
 
             return Ok(_mapper.Map<ReadUserDto>(userCreated));
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return BadRequest("Erro ao salvar ao criar o usuário");
         }
