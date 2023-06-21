@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using UsersApi.src.Models;
 
 namespace UsersApiStudy.src.Models;
 public class User
@@ -20,4 +21,5 @@ public class User
     public string Nationality { get; set; }
     public virtual Address Address { get; set; }
     public virtual Contact Contact { get; set; }
+    public virtual Permissions Permissions { get; set; }
 } 

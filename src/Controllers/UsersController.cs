@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using UsersApi.src.Interfaces;
 using UsersApiStudy.src.Contexts;
 using UsersApiStudy.src.DTOs;
 using UsersApiStudy.src.Models;
@@ -13,19 +14,29 @@ public class UsersController : ControllerBase
     private UsersContext _dbContext;
     private IMapper _mapper;
 
-    public UsersController(
-        UsersContext dbContext, 
-        IMapper mapper
-    )
+    public UsersController( UsersContext dbContext, IMapper mapper )
     {
         _dbContext = dbContext;
         _mapper = mapper;
     }
 
     [HttpGet]
-    public IEnumerable<ReadUserDto> GetUsers()
+    public IActionResult GetUsers([FromQuery] int page = 0, [FromQuery] int size = 5)
     {
-        return _mapper.Map<List<ReadUserDto>>(_dbContext.Users.ToList()) ;
+        var users = _mapper.Map<List<ReadUserDto>>(
+            _dbContext.Users
+            .Skip(page * size)
+            .Take(size)
+            .ToList()
+        );
+
+        return Ok(
+            new DefaultGetData {
+                Data = users, 
+                Page = page, 
+                Size = size
+            }
+        );
     }
 
     [HttpGet("{userId}")]
