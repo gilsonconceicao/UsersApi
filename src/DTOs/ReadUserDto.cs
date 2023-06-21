@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using UsersApi.src.DTOs;
 
 namespace UsersApiStudy.src.DTOs;
 public class ReadUserDto
@@ -12,4 +13,5 @@ public class ReadUserDto
     public string Nationality { get; set; } 
     public ReadAddressDto Address { get; set; } 
     public ReadContactDto Contact { get; set; }
+    public ReadPermission Permission { get; set; }
 }
