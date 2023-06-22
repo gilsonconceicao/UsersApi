@@ -32,6 +32,6 @@ public class UsersContext : DbContext
         modelBuilder.Entity<User>()
             .HasOne(user => user.Permissions)
             .WithOne(permission => permission.User)
-            .HasForeignKey<Permissions>(contact => contact.UserId);
+            .HasForeignKey<Permissions>(permission => permission.UserId);
     }
 }

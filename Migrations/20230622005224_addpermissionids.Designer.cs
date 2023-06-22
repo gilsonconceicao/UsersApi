@@ -11,8 +11,8 @@ using UsersApiStudy.src.Contexts;
 namespace UsersApiStudy.Migrations
 {
     [DbContext(typeof(UsersContext))]
-    [Migration("20230618204040_create new table")]
-    partial class createnewtable
+    [Migration("20230622005224_addpermissionids")]
+    partial class addpermissionids
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,26 @@ namespace UsersApiStudy.Migrations
                 .HasAnnotation("Proxies:CheckEquality", false)
                 .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("UsersApi.src.Models.Permissions", b =>
+                {
+                    b.Property<Guid>("PermissionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("UserPermissions")
+                        .HasColumnType("int");
+
+                    b.HasKey("PermissionId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Permissions");
+                });
 
             modelBuilder.Entity("UsersApiStudy.src.Models.Address", b =>
                 {
@@ -97,7 +117,7 @@ namespace UsersApiStudy.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Contects");
+                    b.ToTable("Contacts");
                 });
 
             modelBuilder.Entity("UsersApiStudy.src.Models.User", b =>
@@ -133,6 +153,17 @@ namespace UsersApiStudy.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("UsersApi.src.Models.Permissions", b =>
+                {
+                    b.HasOne("UsersApiStudy.src.Models.User", "User")
+                        .WithOne("Permissions")
+                        .HasForeignKey("UsersApi.src.Models.Permissions", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("UsersApiStudy.src.Models.Address", b =>
                 {
                     b.HasOne("UsersApiStudy.src.Models.User", "User")
@@ -161,6 +192,9 @@ namespace UsersApiStudy.Migrations
                         .IsRequired();
 
                     b.Navigation("Contact")
+                        .IsRequired();
+
+                    b.Navigation("Permissions")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

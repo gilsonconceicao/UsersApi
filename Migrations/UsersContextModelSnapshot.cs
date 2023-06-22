@@ -24,13 +24,20 @@ namespace UsersApiStudy.Migrations
 
             modelBuilder.Entity("UsersApi.src.Models.Permissions", b =>
                 {
+                    b.Property<Guid>("PermissionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
                     b.Property<int>("UserPermissions")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId");
+                    b.HasKey("PermissionId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Permissions");
                 });

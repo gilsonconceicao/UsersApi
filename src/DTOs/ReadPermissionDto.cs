@@ -7,7 +7,7 @@ using UsersApi.src.Enums;
 
 namespace UsersApi.src.DTOs
 {
-    public class ReadPermission
+    public class ReadPermissionDto
     {
         public Guid UserId { get; set; }
         public PermissionsEnum UserPermissions { get; set; }

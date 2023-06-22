@@ -13,5 +13,5 @@ public class ReadUserDto
     public string Nationality { get; set; } 
     public ReadAddressDto Address { get; set; } 
     public ReadContactDto Contact { get; set; }
-    public ReadPermission Permission { get; set; }
+    public ReadPermissionDto Permission { get; set; }
 }
