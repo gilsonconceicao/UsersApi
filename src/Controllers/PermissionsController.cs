@@ -27,9 +27,9 @@ public class PermissionsController : ControllerBase
     {   
         var user = _dbContext.Users.FirstOrDefault(user => user.UserId == userId); 
 
-        if (userId == null) return BadRequest("Usuário não existe"); 
+        if (user == null) return NotFound("Usuário não existe"); 
 
-        var permission = _mapper.Map<Permissions, ReadPermissionDto>(user!.Permissions); 
+        var permission = _mapper.Map<Permissions, ReadPermissionDto>(user.Permissions); 
 
         return Ok(permission); 
     }

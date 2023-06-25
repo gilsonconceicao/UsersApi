@@ -9,6 +9,7 @@ public class PermissionProfile : Profile
     public PermissionProfile()
     {
         CreateMap<CreatePermission, Permissions>(); 
-        CreateMap<Permissions, ReadPermissionDto>().ReverseMap(); 
+        CreateMap<Permissions, ReadPermissionDto>();
+        CreateMap<ReadPermissionDto, Permissions>();
     }        
 }
